@@ -1,11 +1,59 @@
 {
-
   // -------------------------------------------------------------------------
   // Kuzzle configuration sample file
   //
   // You can copy this file to a valid rc file location to customize Kuzzle
   // configuration (see https://github.com/dominictarr/rc)
   // -------------------------------------------------------------------------
+
+  // Cluster configuration section
+  "cluster": {
+    // [bindings]
+    //    The bindings on which each node can be reached by the others can be
+    //    configured in the `bindings` section of the cluster plugin
+    //    configuration.
+    //
+    //    The syntax is: "tcp://[<interface>:<family>]:<port>", where:
+    //      - "interface" is either a network interface (e.g. `eth0`),
+    //        an ip address (e.g. `0.0.0.0`) or the special "_site_" keyword.
+    //        If set to "_site_", the first public found IP will be used.
+    //      - "family" is either set to "ipv4" (default) or "ipv6"
+    //      - "port" is set to the network port to open
+    "bindings": {
+      "pub": "tcp://[_site_:ipv4]:7511",
+      "router": "tcp://[_site_:ipv4]:7510"
+    },
+
+    // * minimumNodes:
+    //    The minimum number of nodes necessary for a cluster. Below that
+    //    threshold, nodes will stop accepting requests to prevent split-brains
+    // * retryJoin:
+    //    The maximum number of retries a node should attempt when joining
+    //    a cluster.
+    "minimumNodes": 1,
+    "retryJoin": 30,
+
+    // [timers]
+    //    All timer values are in milliseconds.
+    //
+    //    * discoverTimeout:
+    //        Timeout before an auto-discovery operation fails
+    //    * heartbeat:
+    //        Heartbeat ensuring that other nodes in the cluster are still
+    //        alive
+    //    * joinAttemptInterval:
+    //        Time between cluster join attempts
+    //    * waitForMissingRooms:
+    //        Resync delay before confirming that a real-time room doesn't
+    //        exist
+    //
+    "timers": {
+      "discoverTimeout": 3000,
+      "heartbeat": 5000,
+      "joinAttemptInterval": 1000,
+      "waitForMissingRooms": 500,
+    }
+  },
 
   // The HTTP section lets you configure how Kuzzle should handle HTTP requests
   "http": {

@@ -1,5 +1,7 @@
 'use strict';
 
+/* eslint sort-keys: 0 */
+
 /**
  * /!\ DO NOT MODIFY THIS FILE
  *
@@ -11,9 +13,19 @@
  * @class KuzzleConfiguration
  */
 module.exports = {
-  // @deprecated
-  realtime: {
-    pcreSupport: false
+  cluster: {
+    bindings: {
+      pub: 'tcp://[_site_:ipv4]:7511',
+      router: 'tcp://[_site_:ipv4]:7510'
+    },
+    minimumNodes: 1,
+    retryJoin: 30,
+    timers: {
+      discoverTimeout: 3000,
+      heartbeat: 5000,
+      joinAttemptInterval: 1000,
+      waitForMissingRooms: 500,
+    }
   },
 
   dump: {
@@ -72,6 +84,11 @@ module.exports = {
       maxConcurrentPipes: 50,
       pipesBufferSize: 50000
     }
+  },
+
+  // @deprecated
+  realtime: {
+    pcreSupport: false
   },
 
   repositories: {

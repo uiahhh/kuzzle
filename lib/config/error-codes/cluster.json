@@ -1,0 +1,16 @@
+{
+  "code": 8,
+  "subdomains": {
+    "node": {
+      "code": 1,
+      "errors": {
+        "not_ready": {
+          "description": "Cluster node is not ready",
+          "code": 1,
+          "message": "Cluster node is not ready",
+          "class": "PreConditionError"
+        },
+      }
+    }
+  }
+}
