@@ -46,7 +46,6 @@
     //    * waitForMissingRooms:
     //        Resync delay before confirming that a real-time room doesn't
     //        exist
-    //
     "timers": {
       "discoverTimeout": 3000,
       "heartbeat": 5000,
