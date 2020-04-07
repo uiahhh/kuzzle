@@ -28,7 +28,6 @@
           "message": "Cannot read log directory '%s' : %s.",
           "class": "InternalError"
         }
-
       }
     },
     "realtime": {
