@@ -8,8 +8,8 @@
           "description": "Cluster node is not ready",
           "code": 1,
           "message": "Cluster node is not ready",
-          "class": "PreConditionError"
-        },
+          "class": "PreconditionError"
+        }
       }
     }
   }
