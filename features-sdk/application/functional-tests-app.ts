@@ -18,6 +18,8 @@ if (! process.env.TRAVIS) {
   });
 }
 
+app.config.set('plugins.cluster.privileged', true);
+
 // Pipe management
 const activatedPipes: any = {};
 
