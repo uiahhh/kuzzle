@@ -5,7 +5,10 @@
 
 import should from 'should'
 import { omit } from 'lodash'
+import fetch from 'node-fetch'
+import axios from 'axios'
 
+import { KuzzleError } from 'kuzzle-common-objects'
 import { Backend, Request } from '../../index';
 import { FunctionalTestsController } from './functional-tests-controller';
 
@@ -50,6 +53,70 @@ if (! process.env.TRAVIS) {
 
 // Controller class usage
 app.controller.use(new FunctionalTestsController(app));
+
+app.controller.register('kibana', {
+  actions: {
+    proxy: {
+      handler: async request => {
+        // @todo add misc in kuzzle-common-object
+        // @todo find why this print verb, url and headers key in the top level and not in misc
+        // app.log.info(JSON.stringify(request.context.connection, null, 2))
+        const method = request.context.connection.misc.verb
+        const path = request.context.connection.misc.url.replace('/_/kibana?', '')
+        const headers = request.context.connection.misc.headers
+
+        app.log.info(method)
+        app.log.info(path)
+        // app.log.info(headers)
+        // app.log.info(request.input.body)
+
+        const options: any = {
+          url: `http://elasticsearch:9200/${path}`,
+          method,
+          headers,
+        }
+        if (request.input.body !== null) {
+          options.data = JSON.stringify(request.input.body)
+        }
+
+        try {
+          const response = await axios.request(options)
+
+          // app.log.info(response.headers)
+          if (response.data.nodes) {
+            for (const [id, info] of Object.entries(response.data.nodes)) {
+              const inf = info as any
+              inf.http.publish_address = "172.26.0.8:9212"
+              inf.ip = "172.26.0.8"
+            }
+          }
+          app.log.info(response.status)
+          app.log.info(response.data)
+
+          request.setResult(response.data, {
+            status: response.status,
+            headers: response.headers,
+            raw: true
+          })
+
+          return response.data
+        }
+        catch (error) {
+          throw new KuzzleError(JSON.stringify(error.response.data.error), error.response.status)
+        }
+      },
+      http: [
+        { verb: 'get', path: 'kibana' },
+        { verb: 'post', path: 'kibana' },
+        { verb: 'delete', path: 'kibana' },
+        { verb: 'put', path: 'kibana' },
+        // @todo handle "options" verb
+        // { verb: 'options', path: 'kibana' },
+        { verb: 'head', path: 'kibana' },
+      ]
+    }
+  }
+})
 
 // Pipe management
 const activatedPipes: any = {};
