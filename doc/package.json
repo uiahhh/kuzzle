@@ -17,6 +17,7 @@
   "license": "ISC",
   "dependencies": {
     "fix-indents": "^0.1.2092",
+    "kuzdoc": "^1.2.2",
     "node-sass": "^4.13.1",
     "sass-loader": "^7.1.0",
     "vuepress": "^1.7.1",
