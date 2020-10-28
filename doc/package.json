@@ -1,0 +1,25 @@
+{
+  "name": "kuzzle-core-doc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "doc-prepare": "kuzdoc framework:install",
+    "doc-dev": "kuzdoc repo:dev --deploy-path /core/2/ --local-path 2",
+    "doc-build": "kuzdoc repo:build --deploy-path /core/2/ --local-path 2",
+    "doc-upload": "kuzdoc repo:deploy --deploy-path /core/2/ --local-path 2",
+    "doc-cloudfront": "kuzdoc repo:cloudfront --deploy-path /core/2/*",
+    "doc-deploy": "npm run doc-upload && npm run doc-cloudfront",
+    "doc-netlify": "npm run doc-prepare && kuzdoc repo:build -d / --local-path 2",
+    "doc-error-codes": "node build-error-codes"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fix-indents": "^0.1.2092",
+    "node-sass": "^4.13.1",
+    "sass-loader": "^7.1.0",
+    "vuepress": "^1.7.1",
+    "vuepress-frontmatter-lint": "^2.1.2"
+  }
+}
