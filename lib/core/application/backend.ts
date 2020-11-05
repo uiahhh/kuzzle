@@ -39,7 +39,6 @@ import {
   JSONObject,
   ControllerDefinition,
   BasePlugin,
-  PluginBase,
   Controller
 } from '../../util/interfaces';
 
@@ -473,7 +472,6 @@ export class Backend {
 
   /**
    * Errors manager
-   * @todo add type
    */
   public kerror: any;
 
