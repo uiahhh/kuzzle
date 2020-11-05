@@ -21,6 +21,7 @@
 
 import { Request } from 'kuzzle-common-objects';
 import { Backend } from '../core/application/backend';
+import { PluginContext } from '../core/plugin/pluginContext'
 
 /**
  * An interface representing an object with string key and any value
@@ -99,7 +100,7 @@ export abstract class Controller {
 }
 
 export interface BasePlugin {
-  init: (config: JSONObject, context: any) => Promise<any> | any
+  init (config: JSONObject, context: PluginContext): Promise<any> | any
 }
 
 /**

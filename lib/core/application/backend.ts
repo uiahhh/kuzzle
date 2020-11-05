@@ -39,6 +39,7 @@ import {
   JSONObject,
   ControllerDefinition,
   BasePlugin,
+  PluginBase,
   Controller
 } from '../../util/interfaces';
 
